@@ -22,6 +22,7 @@ server.use(restify.plugins.acceptParser(server.acceptable));
 server.use(restify.plugins.queryParser());
 server.use(restify.plugins.gzipResponse());
 
+// API Endpoint's
 router.add("/api", home);
 router.add("/montir", montir);
 router.applyRoutes(server);
