@@ -1,5 +1,6 @@
 const restify = require("restify");
 const router = new (require("restify-router")).Router();
+const mongoose = require("mongoose");
 const server = restify.createServer({
   name: "bengkel-api",
   version: "1.0.0"
@@ -21,6 +22,20 @@ server.use(restify.plugins.bodyParser());
 server.use(restify.plugins.acceptParser(server.acceptable));
 server.use(restify.plugins.queryParser());
 server.use(restify.plugins.gzipResponse());
+
+// Connect To Database
+mongoose.Promise = global.Promise;
+mongoose
+  .connect(
+    "mongodb://localhost:27017/bengkel-api",
+    { useNewUrlParser: true }
+  )
+  .then(() => {
+    console.log("Berhasil konek ke database");
+  })
+  .catch(() => {
+    console.log("Gagal konek ke database");
+  });
 
 // API Endpoint's
 router.add("/api", home);
