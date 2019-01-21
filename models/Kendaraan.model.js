@@ -12,6 +12,12 @@ const KendaraanSchema = mongoose.Schema({
   warna: {
     type: String,
     required: true
+  },
+  // Relations
+  customer: {
+    type: mongoose.Types.ObjectId,
+    ref: "Customer",
+    required: true
   }
 });
 
