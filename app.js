@@ -8,6 +8,7 @@ const server = restify.createServer({
 const logger = require("./basic-logger");
 
 const home = require("./routes/index");
+const montir = require("./routes/montir");
 
 server.use(
   restify.plugins.throttle({
@@ -22,6 +23,7 @@ server.use(restify.plugins.queryParser());
 server.use(restify.plugins.gzipResponse());
 
 router.add("/api", home);
+router.add("/montir", montir);
 router.applyRoutes(server);
 
 server.on(
