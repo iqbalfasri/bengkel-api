@@ -1,0 +1,21 @@
+{
+	"name": "bengkel-api",
+	"version": "1.0.0",
+	"description": "My API Description",
+	"keywords": [
+		"restify",
+		"template",
+		"boilerplate"
+	],
+	"scripts": {
+		"start": "nodemon app.js"
+	},
+	"devDependencies": {
+		"eslint": "^4.16.0"
+	},
+	"dependencies": {
+		"bunyan": "^1.8.12",
+		"restify": "^6.3.4",
+		"restify-router": "^0.5.0"
+	}
+}
