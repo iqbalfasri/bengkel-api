@@ -15,6 +15,7 @@
 	},
 	"dependencies": {
 		"bunyan": "^1.8.12",
+		"mongoose": "^5.4.5",
 		"restify": "^6.3.4",
 		"restify-router": "^0.5.0"
 	}
