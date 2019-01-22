@@ -26,6 +26,26 @@ exports.all = (req, res) => {
     });
 };
 
+// Detail Montir
+exports.detail = (req, res) => {
+  const { _id } = req.params;
+
+  montir
+    .findById(_id)
+    .then(montir => {
+      res.json({
+        data: montir,
+        status: "Success"
+      });
+    })
+    .catch(err => {
+      res.json({
+        data: null,
+        status: err
+      });
+    });
+};
+
 // Create / Add new Montir
 exports.create = (req, res) => {
   const {
@@ -34,6 +54,7 @@ exports.create = (req, res) => {
     jenis_kelamin_montir,
     password
   } = req.body;
+
   const createMontir = new montir({
     nama_montir: nama_montir,
     alamat_montir: alamat_montir,
@@ -57,5 +78,25 @@ exports.create = (req, res) => {
         errorMessage: err
       });
       console.log(err, "ada Error");
+    });
+};
+
+exports.update = (req, res) => {};
+
+exports.remove = (req, res) => {
+  const { _id } = req.params;
+
+  montir
+    .findByIdAndDelete(_id)
+    .then(deleted => {
+      res.json({
+        status: "Success",
+        data: deleted
+      });
+    })
+    .catch(err => {
+      res.json({
+        status: err
+      });
     });
 };
