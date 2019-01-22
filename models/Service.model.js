@@ -16,6 +16,8 @@ const ServiceSchema = mongoose.Schema({
     ref: 'Montir',
     required: true
   }
+}, {
+  versionKey: false
 });
 
 module.exports = mongoose.model("Service", ServiceSchema);

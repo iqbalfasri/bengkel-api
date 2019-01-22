@@ -13,6 +13,8 @@ const BarangJasaSchema = mongoose.Schema({
     type: Number,
     required: true
   }
+}, {
+  versionKey: false
 });
 
 module.exports = mongoose.model("BarangJasa", BarangJasaSchema);

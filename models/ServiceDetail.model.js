@@ -16,6 +16,8 @@ const ServiceDetailSchema = mongoose.Schema({
     ref: "BarangJasa",
     required: true
   }
+}, {
+  versionKey: false
 });
 
 module.exports = mongoose.model("ServiceDetail", ServiceDetailSchema);

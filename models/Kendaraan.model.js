@@ -19,6 +19,8 @@ const KendaraanSchema = mongoose.Schema({
     ref: "Customer",
     required: true
   }
+}, {
+  versionKey: false
 });
 
 module.exports = mongoose.model("Kendaraan", KendaraanSchema);
