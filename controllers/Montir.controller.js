@@ -81,13 +81,54 @@ exports.create = (req, res) => {
     });
 };
 
-exports.update = (req, res) => {};
+exports.update = (req, res) => {
+  const { _id } = req.params;
+  const {
+    nama_montir,
+    alamat_montir,
+    jenis_kelamin_montir,
+    password
+  } = req.body;
+
+  let updateData = {};
+
+  if (nama_montir) {
+    updateData.nama_montir = nama_montir;
+  }
+  if (alamat_montir) {
+    updateData.alamat_montir = alamat_montir;
+  }
+  if (jenis_kelamin_montir) {
+    updateData.jenis_kelamin_montir = jenis_kelamin_montir;
+  }
+  if (password) {
+    updateData.password = password;
+  }
+
+  montir.findOneAndUpdate({ _id: _id }, updateData, (err, data) => {
+    if (err) {
+      res.json({
+        message: "Interal server error"
+      });
+    }
+
+    if (data === null) {
+      res.json({
+        message: "Mentor tidak ada"
+      })
+    }
+
+    res.json({
+      data: data
+    });
+  });
+};
 
 exports.remove = (req, res) => {
   const { _id } = req.params;
 
   montir
-    .findByIdAndDelete(_id)
+    .findOneAndDelete({ _id: _id })
     .then(deleted => {
       res.json({
         status: "Success",

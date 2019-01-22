@@ -25,6 +25,7 @@ server.use(restify.plugins.gzipResponse());
 
 // Connect To Database
 mongoose.Promise = global.Promise;
+mongoose.set("useCreateIndex", true);
 mongoose
   .connect(
     "mongodb://localhost:27017/bengkel-api",
