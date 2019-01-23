@@ -3,7 +3,6 @@ const montir = require("../models/Montir.model");
 // Index route
 exports.index = (req, res) => {
   res.json({
-    message: "Hello to montir endpoint",
     list_endpoints: ["/all", "/create"]
   });
 };
