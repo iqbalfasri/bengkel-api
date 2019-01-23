@@ -8,8 +8,10 @@ const server = restify.createServer({
 
 const logger = require("./basic-logger");
 
+// Routes
 const home = require("./routes/index");
 const montir = require("./routes/montir");
+const customer = require("./routes/customer");
 
 server.use(
   restify.plugins.throttle({
@@ -41,6 +43,7 @@ mongoose
 // API Endpoint's
 router.add("/api", home);
 router.add("/montir", montir);
+router.add("/customer", customer);
 router.applyRoutes(server);
 
 server.on(
