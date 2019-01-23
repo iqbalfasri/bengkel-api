@@ -105,23 +105,23 @@ exports.update = (req, res) => {
     updateData.password = password;
   }
 
-  montir.findOneAndUpdate({ _id: _id }, updateData, (err, data) => {
-    if (err) {
-      res.json({
-        message: "Interal server error"
+  montir
+    .findOneAndUpdate({ _id: _id }, updateData)
+    .then(data => {
+      if (data === null) {
+        return res.json({
+          message: "Mentor tidak ada"
+        });
+      }
+      return res.json({
+        message: "Update berhasil"
       });
-    }
-
-    if (data === null) {
+    })
+    .catch(err => {
       res.json({
-        message: "Mentor tidak ada"
-      })
-    }
-
-    res.json({
-      data: data
+        message: "Internal server error"
+      });
     });
-  });
 };
 
 exports.remove = (req, res) => {
