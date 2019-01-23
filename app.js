@@ -1,3 +1,4 @@
+require("dotenv").config();
 const restify = require("restify");
 const router = new (require("restify-router")).Router();
 const mongoose = require("mongoose");
@@ -30,7 +31,7 @@ mongoose.Promise = global.Promise;
 mongoose.set("useCreateIndex", true);
 mongoose
   .connect(
-    "mongodb://localhost:27017/bengkel-api",
+    process.env.MONGO_DB_LOCAL,
     { useNewUrlParser: true }
   )
   .then(() => {
