@@ -35,6 +35,14 @@ exports.detail = (req, res) => {
   montir
     .findById(_id)
     .then(montir => {
+      // Cek jika customer sudah dihapus atau tidak ada dalam database
+      if (montir === null) {
+        return res.json({
+          message: "Montir tidak ditemukan",
+          code: code_response.CODE_NOT_FOUND
+        });
+      }
+
       res.json({
         data: montir,
         status: "Success",
@@ -42,8 +50,15 @@ exports.detail = (req, res) => {
       });
     })
     .catch(err => {
+      // Cek jika id tidak sesuai
+      if (err.kind === "ObjectId") {
+        return res.json({
+          message: "Montir tidak ditemukan",
+          code: code_response.CODE_NOT_FOUND
+        });
+      }
+
       res.json({
-        data: null,
         status: "Internal server error",
         code: code_response.CODE_SERVER_ERROR
       });
@@ -112,18 +127,28 @@ exports.update = (req, res) => {
   montir
     .findOneAndUpdate({ _id: _id }, updateData)
     .then(data => {
+      // Cek jika customer sudah dihapus atau tidak ada dalam database
       if (data === null) {
         return res.json({
-          message: "Mentor tidak ada",
+          message: "Montir tidak ditemukan",
           code: code_response.CODE_NOT_FOUND
         });
       }
-      return res.json({
+
+      res.json({
         message: "Update berhasil",
         code: code_response.CODE_SUCCESS
       });
     })
     .catch(err => {
+      // Cek jika id tidak sesuai
+      if (err.kind === "ObjectId") {
+        return res.json({
+          message: "Montir tidak ditemukan",
+          code: code_response.CODE_NOT_FOUND
+        });
+      }
+
       res.json({
         message: "Internal server error",
         code: code_response.CODE_SERVER_ERROR
@@ -143,9 +168,17 @@ exports.remove = (req, res) => {
       });
     })
     .catch(err => {
+      // Cek jika id tidak sesuai
+      if (err.kind === "ObjectId") {
+        return res.json({
+          message: "Montir tidak ditemukan",
+          code: code_response.CODE_NOT_FOUND
+        });
+      }
+
       res.json({
         status: "Internal server error",
-        code: code_response.CODE_SERVER_ERROR
+        code: code_response.CODE_SERVER_ERROR,
       });
     });
 };

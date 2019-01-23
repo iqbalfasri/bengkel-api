@@ -1,5 +1,5 @@
 const customer = require("../models/Customer.model");
-const { code_response } = require('../utils')
+const { code_response } = require("../utils");
 
 // Index route
 exports.index = (req, res) => {
@@ -32,24 +32,35 @@ exports.detail = (req, res) => {
   const { _id } = req.params;
 
   customer
-    .findById(_id)
+    .findOne({ _id: _id })
     .then(cust => {
+      // Cek jika customer sudah dihapus atau tidak ada dalam database
       if (cust === null) {
         return res.json({
           message: "Customer tidak ditemukan",
           code: code_response.CODE_NOT_FOUND
         });
       }
-      return res.json({
+
+      res.json({
         data: cust,
         message: "Succes",
         code: code_response.CODE_SUCCESS
       });
     })
     .catch(err => {
+      // Cek jika id tidak sesuai
+      if (err.kind === "ObjectId") {
+        return res.json({
+          message: "Customer tidak ditemukan",
+          code: code_response.CODE_NOT_FOUND
+        });
+      }
+
       res.json({
         message: "Internal server error",
-        code: code_response.CODE_SERVER_ERROR
+        code: code_response.CODE_SERVER_ERROR,
+        err: err
       });
     });
 };
@@ -105,18 +116,27 @@ exports.update = (req, res) => {
   customer
     .findOneAndUpdate({ _id: _id }, updateData)
     .then(cust => {
+      // Cek jika customer sudah dihapus atau tidak ada dalam database
       if (cust === null) {
         return res.json({
-          message: "Customer tidak ada",
+          message: "Customer tidak ditemukan",
           code: code_response.CODE_NOT_FOUND
         });
       }
-      return res.json({
+      res.json({
         message: "Update berhasil",
         code: code_response.CODE_SUCCESS
       });
     })
     .catch(err => {
+      // Cek jika id tidak sesuai
+      if (err.kind === "ObjectId") {
+        return res.json({
+          message: "Customer tidak ditemukan",
+          code: code_response.CODE_NOT_FOUND
+        });
+      }
+
       res.json({
         message: "Internal server error",
         code: code_response.CODE_SERVER_ERROR
@@ -137,6 +157,14 @@ exports.remove = (req, res) => {
       });
     })
     .catch(err => {
+      // Cek jika id tidak sesuai
+      if (err.kind === "ObjectId") {
+        return res.json({
+          message: "Customer tidak ditemukan",
+          code: code_response.CODE_NOT_FOUND
+        });
+      }
+
       res.json({
         message: "Internal server error",
         code: code_response.CODE_SERVER_ERROR
