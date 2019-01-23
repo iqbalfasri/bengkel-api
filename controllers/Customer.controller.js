@@ -1,4 +1,5 @@
 const customer = require("../models/Customer.model");
+const { code_response } = require('../utils')
 
 // Index route
 exports.index = (req, res) => {
@@ -14,12 +15,14 @@ exports.all = (req, res) => {
     .then(cust => {
       res.json({
         data: cust,
-        message: "Success"
+        message: "Success",
+        code: code_response.CODE_SUCCESS
       });
     })
     .catch(err => {
       res.json({
-        message: "Internal server error"
+        message: "Internal server error",
+        code: code_response.CODE_SERVER_ERROR
       });
     });
 };
@@ -33,17 +36,20 @@ exports.detail = (req, res) => {
     .then(cust => {
       if (cust === null) {
         return res.json({
-          message: "Customer tidak ditemukan"
+          message: "Customer tidak ditemukan",
+          code: code_response.CODE_NOT_FOUND
         });
       }
       return res.json({
         data: cust,
-        message: "Succes"
+        message: "Succes",
+        code: code_response.CODE_SUCCESS
       });
     })
     .catch(err => {
       res.json({
-        message: "Internal server error"
+        message: "Internal server error",
+        code: code_response.CODE_SERVER_ERROR
       });
     });
 };
@@ -63,12 +69,14 @@ exports.create = (req, res) => {
     .then(cust => {
       res.json({
         data: cust,
-        message: "Success"
+        message: "Success",
+        code: code_response.CODE_SUCCESS
       });
     })
     .catch(err => {
       res.json({
-        message: "Internal server error"
+        message: "Internal server error",
+        code: code_response.CODE_SERVER_ERROR
       });
     });
 };
@@ -99,16 +107,19 @@ exports.update = (req, res) => {
     .then(cust => {
       if (cust === null) {
         return res.json({
-          message: "Customer tidak ada"
+          message: "Customer tidak ada",
+          code: code_response.CODE_NOT_FOUND
         });
       }
       return res.json({
-        message: "Update berhasil"
+        message: "Update berhasil",
+        code: code_response.CODE_SUCCESS
       });
     })
     .catch(err => {
       res.json({
-        message: "Internal server error"
+        message: "Internal server error",
+        code: code_response.CODE_SERVER_ERROR
       });
     });
 };
@@ -121,12 +132,14 @@ exports.remove = (req, res) => {
     .findOneAndDelete({ _id: _id })
     .then(() => {
       res.json({
-        message: "Delete berhasil"
+        message: "Delete berhasil",
+        code: code_response.CODE_SUCCESS
       });
     })
     .catch(err => {
       res.json({
-        message: "Internal server error"
+        message: "Internal server error",
+        code: code_response.CODE_SERVER_ERROR
       });
     });
 };
