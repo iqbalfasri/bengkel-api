@@ -8,10 +8,12 @@
 		"boilerplate"
 	],
 	"scripts": {
-		"start": "node app.js"
+		"start": "node app.js",
+		"auto-start": "nodemon app.js"
 	},
 	"devDependencies": {
-		"eslint": "^4.16.0"
+		"eslint": "^4.16.0",
+		"nodemon": "^1.18.9"
 	},
 	"dependencies": {
 		"bcrypt": "^3.0.3",
