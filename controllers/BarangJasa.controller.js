@@ -135,3 +135,30 @@ exports.update = (req, res) => {
       });
     });
 };
+
+// Delete / Remove Barang Jasa
+exports.remove = (req, res, next) => {
+  const { _id } = req.params;
+
+  barangJasa
+    .findOneAndDelete({ _id: _id })
+    .then(() => {
+      res.json({
+        message: "Delete berhasil",
+        code: code_response.CODE_SUCCESS
+      });
+    })
+    .catch(err => {
+      if (err.kind === "ObjectId") {
+        return res.json({
+          message: "Barang Jasa tidak ditemukan",
+          code: code_response.CODE_NOT_FOUND
+        });
+      }
+
+      res.json({
+        message: "Internal server error",
+        code: code_response.CODE_SERVER_ERROR
+      });
+    });
+};
