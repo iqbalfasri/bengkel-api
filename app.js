@@ -7,7 +7,7 @@ const server = restify.createServer({
 
 require("dotenv").config();
 // Connect to database
-require('./database').connect();
+require("./database").connect();
 
 const logger = require("./basic-logger");
 
@@ -15,6 +15,7 @@ const logger = require("./basic-logger");
 const home = require("./routes/index");
 const montir = require("./routes/montir");
 const customer = require("./routes/customer");
+const barang_jasa = require("./routes/barang-jasa");
 
 server.use(
   restify.plugins.throttle({
@@ -32,6 +33,7 @@ server.use(restify.plugins.gzipResponse());
 router.add("/api", home);
 router.add("/montir", montir);
 router.add("/customer", customer);
+router.add("/barang-jasa", barang_jasa);
 router.applyRoutes(server);
 
 server.on(

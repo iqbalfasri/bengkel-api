@@ -8,7 +8,7 @@
 		"boilerplate"
 	],
 	"scripts": {
-		"start": "nodemon app.js"
+		"start": "node app.js"
 	},
 	"devDependencies": {
 		"eslint": "^4.16.0"
