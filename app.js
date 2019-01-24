@@ -15,6 +15,7 @@ const logger = require("./basic-logger");
 const home = require("./routes/index");
 const montir = require("./routes/montir");
 const customer = require("./routes/customer");
+const kendaraan = require("./routes/kendaraan");
 const barang_jasa = require("./routes/barang-jasa");
 
 server.use(
@@ -34,6 +35,7 @@ router.add("/api", home);
 router.add("/montir", montir);
 router.add("/customer", customer);
 router.add("/barang-jasa", barang_jasa);
+router.add("/kendaraan", kendaraan);
 router.applyRoutes(server);
 
 server.on(
