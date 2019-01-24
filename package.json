@@ -8,7 +8,7 @@
 		"boilerplate"
 	],
 	"scripts": {
-		"start": "node app.js"
+		"start": "node2 app.js"
 	},
 	"devDependencies": {
 		"eslint": "^4.16.0"
