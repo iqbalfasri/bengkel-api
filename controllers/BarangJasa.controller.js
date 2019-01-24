@@ -88,3 +88,50 @@ exports.create = (req, res) => {
       });
     });
 };
+
+// Update Barang Jasa
+exports.update = (req, res) => {
+  const { _id } = req.params;
+  const { nama_barang_jasa, harga, stok } = req.body;
+
+  let updateData = {};
+
+  if (nama_barang_jasa) {
+    updateData.nama_barang_jasa = nama_barang_jasa;
+  }
+  if (harga) {
+    updateData.harga = harga;
+  }
+  if (stok) {
+    updateData.stok = stok;
+  }
+
+  barangJasa
+    .findOneAndUpdate({ _id: _id }, updateData)
+    .then(brg => {
+      if (brg === null) {
+        return res.json({
+          message: "Barang Jasa tidak ditemukan",
+          code: code_response.CODE_NOT_FOUND
+        });
+      }
+
+      res.json({
+        message: "Update berhasil",
+        code: code_response.CODE_SUCCESS
+      });
+    })
+    .catch(err => {
+      if (err.kind === "ObjectId") {
+        return res.json({
+          message: "Barang Jasa tidak ditemukan",
+          code: code_response.CODE_NOT_FOUND
+        });
+      }
+
+      res.json({
+        message: "Internal server error",
+        code: code_response.CODE_SERVER_ERROR
+      });
+    });
+};
