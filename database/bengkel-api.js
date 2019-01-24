@@ -7,7 +7,7 @@ exports.connect = () => {
   mongoose
     .connect(
       // Bisa di ganti nanti jika sudah dideploy
-      process.env.MONGO_DB_LOCAL || process.env.MONGO_DB_LIVE,
+      `${process.env.MONGO_DB_LOCAL}` || `${process.env.MONGO_DB_LIVE}`,
       { useNewUrlParser: true }
     )
     .then(() => {
