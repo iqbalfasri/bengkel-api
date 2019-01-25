@@ -4,7 +4,7 @@ const { code_response } = require("../utils");
 
 // Index route
 exports.index = (req, res) => {
-  res.json({
+  res.send(200, {
     list_endpoints: ["/all", "/detail/:_id"]
   });
 };
@@ -12,7 +12,7 @@ exports.index = (req, res) => {
 // All Kendaraan
 exports.all = (req, res) => {
   kendaraan.find().then(kendaraan => {
-    res.json({
+    res.send(200, {
       data: kendaraan,
       message: "Success",
       code: code_response.CODE_SUCCESS
@@ -31,7 +31,7 @@ exports.detail = (req, res) => {
         customer
           .findOne({ _id: ken.customer })
           .then(cust => {
-            res.json({
+            res.send(200, {
               data: {
                 _id: ken._id,
                 no_polisi: ken.no_polisi,
@@ -42,7 +42,7 @@ exports.detail = (req, res) => {
             });
           })
           .catch(err => {
-            res.json({
+            res.send(500, {
               err: err
             });
           });
@@ -51,13 +51,13 @@ exports.detail = (req, res) => {
     })
     .catch(err => {
       if (err.kind === "ObjectId") {
-        return res.json({
+        return res.send(404, {
           message: "Kendaraan tidak ditemukan",
           code: code_response.CODE_NOT_FOUND
         });
       }
 
-      res.json({
+      res.send(500, {
         message: "Internal server error",
         code: code_response.CODE_SERVER_ERROR
       });
@@ -83,7 +83,7 @@ exports.create = (req, res) => {
           .populate("customer")
           .exec()
           .then(cust => {
-            res.json({
+            res.send(201, {
               data: {
                 _id: ken._id,
                 no_polisi: ken.no_polisi,
@@ -96,7 +96,7 @@ exports.create = (req, res) => {
             });
           })
           .catch(err => {
-            res.json({
+            res.send(404, {
               message: "Customer tidak ditemukan",
               code: code_response.CODE_NOT_FOUND
             });
@@ -106,13 +106,13 @@ exports.create = (req, res) => {
     })
     .catch(err => {
       if (err.errors.customer) {
-        return res.json({
+        return res.send(404, {
           message: "ID Customer tidak valid",
           code: code_response.CODE_BAD_REQUEST
         });
       }
 
-      res.json({
+      res.send(500, {
         message: "Internal server error",
         code: code_response.CODE_SERVER_ERROR
       });

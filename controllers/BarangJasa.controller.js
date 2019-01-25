@@ -3,7 +3,7 @@ const { code_response } = require("../utils");
 
 // Index route
 exports.index = (req, res) => {
-  res.json({
+  res.send(200, {
     list_endpoints: ["/all", "/detail/:_id"]
   });
 };
@@ -13,14 +13,14 @@ exports.all = (req, res) => {
   barangJasa
     .find()
     .then(brg => {
-      res.json({
+      res.send(200, {
         data: brg,
         message: "Success",
         code: code_response.CODE_SUCCESS
       });
     })
     .catch(err => {
-      res.json({
+      res.send(500, {
         message: "Internal server error",
         code: code_response.CODE_SERVER_ERROR
       });
@@ -36,13 +36,13 @@ exports.detail = (req, res) => {
     .then(brg => {
       // Jika data tidak ada atau null
       if (brg === null) {
-        res.json({
+        res.send(404, {
           message: "Barang Jasa tidak ditemukan",
           code: code_response.CODE_NOT_FOUND
         });
       }
 
-      res.json({
+      res.send(200, {
         data: brg,
         message: "Success",
         code: code_response.CODE_SUCCESS
@@ -51,13 +51,13 @@ exports.detail = (req, res) => {
     .catch(err => {
       // Cek jika id tidak sesuai
       if (err.kind === "ObjectId") {
-        return res.json({
+        return res.send(404, {
           message: "Barang Jasa tidak ditemukan",
           code: code_response.CODE_NOT_FOUND
         });
       }
 
-      res.json({
+      res.send(500, {
         message: "Internal server error",
         code: code_response.CODE_SERVER_ERROR
       });
@@ -76,14 +76,14 @@ exports.create = (req, res) => {
   barang_jasa
     .save()
     .then(brg => {
-      res.json({
+      res.send(201, {
         data: brg,
         message: "Success",
         code: code_response.CODE_SUCCESS
       });
     })
     .catch(err => {
-      res.json({
+      res.send(500, {
         message: "Internal server error"
       });
     });
@@ -110,26 +110,26 @@ exports.update = (req, res) => {
     .findOneAndUpdate({ _id: _id }, updateData)
     .then(brg => {
       if (brg === null) {
-        return res.json({
+        return res.send(404, {
           message: "Barang Jasa tidak ditemukan",
           code: code_response.CODE_NOT_FOUND
         });
       }
 
-      res.json({
+      res.send(200, {
         message: "Update berhasil",
         code: code_response.CODE_SUCCESS
       });
     })
     .catch(err => {
       if (err.kind === "ObjectId") {
-        return res.json({
+        return res.send(404, {
           message: "Barang Jasa tidak ditemukan",
           code: code_response.CODE_NOT_FOUND
         });
       }
 
-      res.json({
+      res.send(500, {
         message: "Internal server error",
         code: code_response.CODE_SERVER_ERROR
       });
@@ -143,20 +143,20 @@ exports.remove = (req, res, next) => {
   barangJasa
     .findOneAndDelete({ _id: _id })
     .then(() => {
-      res.json({
+      res.send(200, {
         message: "Delete berhasil",
         code: code_response.CODE_SUCCESS
       });
     })
     .catch(err => {
       if (err.kind === "ObjectId") {
-        return res.json({
+        return res.send(404, {
           message: "Barang Jasa tidak ditemukan",
           code: code_response.CODE_NOT_FOUND
         });
       }
 
-      res.json({
+      res.send(500,  {
         message: "Internal server error",
         code: code_response.CODE_SERVER_ERROR
       });
