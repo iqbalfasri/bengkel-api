@@ -7,14 +7,14 @@ const ServiceSchema = mongoose.Schema(
       required: true
     },
     // Relations
-    no_polisi: {
+    kendaraan: {
       type: mongoose.Types.ObjectId,
       ref: "Kendaraan",
       required: true
     },
     montir: {
-      // type: mongoose.Types.ObjectId,
-      type: String,
+      type: mongoose.Types.ObjectId,
+      // type: String,
       ref: "Montir",
       required: true
     }
