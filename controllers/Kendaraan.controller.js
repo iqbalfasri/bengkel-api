@@ -118,3 +118,53 @@ exports.create = (req, res) => {
       });
     });
 };
+
+// Update Kendaraan
+exports.update = (req, res) => {
+  const { _id } = req.params;
+  const { merk, warna } = req.body;
+
+  let updateData = {};
+
+  if (merk) {
+    updateData.merk = merk;
+  }
+  if (warna) {
+    updateData.warna = warna;
+  }
+
+  kendaraan
+    .findOneAndUpdate({ _id: _id }, updateData)
+    .then(() => {
+      res.send(201, {
+        message: "Update berhasil",
+        code: code_response.CODE_SUCCESS
+      });
+    })
+    .catch(err => {
+      res.send(500, {
+        message: "Internal server error",
+        code: code_response.CODE_SERVER_ERROR
+      });
+    });
+};
+
+// Delete / Remove Kendaraan
+exports.remove = (req, res) => {
+  const { _id } = req.params;
+
+  kendaraan
+    .findOneAndDelete({ _id: _id })
+    .then(() => {
+      res.send(200, {
+        message: "Delete berhasil",
+        code: code_response.CODE_SUCCESS
+      });
+    })
+    .catch(() => {
+      res.send(500, {
+        message: "Internal server error",
+        code: code_response.CODE_SERVER_ERROR
+      });
+    });
+};
