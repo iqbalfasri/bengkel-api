@@ -31,6 +31,13 @@ exports.detail = (req, res) => {
         customer
           .findOne({ _id: ken.customer })
           .then(cust => {
+            if (cust === null) {
+              return res.send(404, {
+                message: `Customer dengan id - ${ken.customer} tidak ditemukan`,
+                code: code_response.CODE_NOT_FOUND
+              });
+            }
+
             res.send(200, {
               data: {
                 _id: ken._id,
@@ -42,12 +49,20 @@ exports.detail = (req, res) => {
             });
           })
           .catch(err => {
+            if (err.kind === "ObjectId") {
+              return res.send(404, {
+                message: `Customer dengan id - ${ken.customer} tidak ditemukan`,
+                code: code_response.CODE_NOT_FOUND
+              });
+            }
+
             res.send(500, {
-              err: err
+              message: "Internal server error",
+              code: code_response.CODE_SERVER_ERROR
             });
           });
-        return;
       }
+      return;
     })
     .catch(err => {
       if (err.kind === "ObjectId") {
@@ -101,8 +116,8 @@ exports.create = (req, res) => {
               code: code_response.CODE_NOT_FOUND
             });
           });
-        return;
       }
+      return;
     })
     .catch(err => {
       if (err.errors.customer) {
@@ -135,13 +150,27 @@ exports.update = (req, res) => {
 
   kendaraan
     .findOneAndUpdate({ _id: _id }, updateData)
-    .then(() => {
+    .then(ken => {
+      if (ken === null) {
+        return res.send(404, {
+          message: "Kendaraan tidak ditemukan",
+          code: code_response.CODE_NOT_FOUND
+        });
+      }
+
       res.send(201, {
         message: "Update berhasil",
         code: code_response.CODE_SUCCESS
       });
     })
     .catch(err => {
+      if (err.kind === "ObjectId") {
+        return res.send(404, {
+          message: "Kendaraan tidak ditemukan",
+          code: code_response.CODE_NOT_FOUND
+        });
+      }
+
       res.send(500, {
         message: "Internal server error",
         code: code_response.CODE_SERVER_ERROR
@@ -161,7 +190,14 @@ exports.remove = (req, res) => {
         code: code_response.CODE_SUCCESS
       });
     })
-    .catch(() => {
+    .catch(err => {
+      if (err.kind === "ObjectId") {
+        return res.send(404, {
+          message: "Kendaraan tidak ditemukan",
+          code: code_response.CODE_NOT_FOUND
+        });
+      }
+
       res.send(500, {
         message: "Internal server error",
         code: code_response.CODE_SERVER_ERROR
