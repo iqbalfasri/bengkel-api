@@ -19,7 +19,7 @@
 		"bcrypt": "^3.0.3",
 		"bunyan": "^1.8.12",
 		"dotenv": "^6.2.0",
-		"mongoose": "^5.4.5",
+		"mongoose": "^5.4.7",
 		"restify": "^6.3.4",
 		"restify-router": "^0.5.0"
 	}
