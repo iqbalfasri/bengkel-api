@@ -111,9 +111,9 @@ exports.create = (req, res) => {
             });
           })
           .catch(err => {
-            res.send(404, {
-              message: "Customer tidak ditemukan",
-              code: code_response.CODE_NOT_FOUND
+            res.send(500, {
+              message: "Internal server error",
+              code: code_response.CODE_SERVER_ERROR
             });
           });
         }
