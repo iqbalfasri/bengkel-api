@@ -45,7 +45,9 @@ exports.detail = (req, res) => {
                 merk: ken.merk,
                 warna: ken.warna,
                 customer: cust.nama_customer
-              }
+              },
+              message: "Success",
+              code: code_response.CODE_SUCCESS
             });
           })
           .catch(err => {
@@ -58,7 +60,7 @@ exports.detail = (req, res) => {
 
             res.send(500, {
               message: "Internal server error",
-              code: code_response.CODE_SERVER_ERROR
+              code: code_response.CODE_SERVER_ERROR,
             });
           });
       }
@@ -116,8 +118,8 @@ exports.create = (req, res) => {
               code: code_response.CODE_SERVER_ERROR
             });
           });
-        }
-        return;
+      }
+      return;
     })
     .catch(err => {
       if (err.errors.customer) {

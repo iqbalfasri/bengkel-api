@@ -6,8 +6,8 @@ const {
   all,
   create,
   detail,
-  // update,
-  // remove
+  update,
+  remove
 } = require("../controllers/Kendaraan.controller");
 
 // Index Route
@@ -18,9 +18,9 @@ router.post("/detail/:_id", detail);
 router.post("/all", all);
 // Create BarangJasa / Add new Barang Jasa
 router.post("/create", create);
-// // Update Barang Jasa
-// router.put("/update/:_id", update);
-// // Delete / Remove Barang Jasa
-// router.del("/delete/:_id", remove);
+// Update Barang Jasa
+router.put("/update/:_id", update);
+// Delete / Remove Barang Jasa
+router.del("/delete/:_id", remove);
 
 module.exports = router;
