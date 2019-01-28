@@ -33,7 +33,8 @@ exports.detail = (req, res) => {
   const { _id } = req.params;
 
   montir
-    .findById(_id)
+    .findOne({ _id: _id })
+    .select("nama_montir alamat_montir jenis_kelamin_montir")
     .then(montir => {
       // Cek jika customer sudah dihapus atau tidak ada dalam database
       if (montir === null) {
