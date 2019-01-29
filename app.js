@@ -18,6 +18,7 @@ const customer = require("./routes/customer");
 const service = require("./routes/service");
 const kendaraan = require("./routes/kendaraan");
 const barang_jasa = require("./routes/barang-jasa");
+const service_detail = require("./routes/service-detail");
 
 server.use(
   restify.plugins.throttle({
@@ -38,6 +39,7 @@ router.add("/customer", customer);
 router.add("/barang-jasa", barang_jasa);
 router.add("/kendaraan", kendaraan);
 router.add("/service", service);
+router.add("/service-detail", service_detail);
 router.applyRoutes(server);
 
 server.on(
