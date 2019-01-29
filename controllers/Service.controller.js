@@ -23,16 +23,51 @@ exports.all = (req, res) => {
         message: "Success",
         code: code_response.CODE_SUCCESS
       });
-    }).catch(err => {
+    })
+    .catch(err => {
       res.send(500, {
         message: "Internal server error",
         code: code_response.CODE_SERVER_ERROR
-      })
-    })
+      });
+    });
 };
 
 // Detail Kendaraan
-exports.detail = (req, res) => {};
+exports.detail = (req, res) => {
+  const { _id } = req.params;
+
+  service
+    .findOne({ _id: _id })
+    .populate("kendaraan")
+    .populate("montir", "nama_montir alamat_montir jenis_kelamin_montir")
+    .then(serv => {
+      if (serv === null) {
+        return res.send(404, {
+          message: "Service tidak ditemukan",
+          code: code_response.CODE_NOT_FOUND
+        });
+      }
+
+      res.send(200, {
+        data: serv,
+        message: "Success",
+        code: code_response.CODE_SUCCESS
+      });
+    })
+    .catch(err => {
+      if (err.kind === "ObjectId") {
+        return res.send(404, {
+          message: "Service tidak ditemukan",
+          code: code_response.CODE_NOT_FOUND
+        });
+      }
+
+      res.send(500, {
+        message: "Internal server error",
+        code: code_response.CODE_SERVER_ERROR
+      });
+    });
+};
 
 // Create / Add new Service
 exports.create = (req, res) => {

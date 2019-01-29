@@ -5,7 +5,7 @@ const {
   index,
   all,
   create,
-  // detail,
+  detail,
   // update,
   // remove
 } = require("../controllers/Service.controller");
@@ -13,7 +13,7 @@ const {
 // Index Route
 router.post("/", index);
 // Detail Service
-// router.post("/detail/:_id", detail);
+router.post("/detail/:_id", detail);
 // View / List All Service
 router.post("/all", all);
 // Create Serivce / Add new Service
