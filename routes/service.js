@@ -6,8 +6,8 @@ const {
   all,
   create,
   detail,
-  // update,
-  // remove
+  update,
+  remove
 } = require("../controllers/Service.controller");
 
 // Index Route
@@ -18,9 +18,9 @@ router.post("/detail/:_id", detail);
 router.post("/all", all);
 // Create Serivce / Add new Service
 router.post("/create", create);
-// // Update Service
-// router.put("/update/:_id", update);
-// // Delete / Remove Service
-// router.del("/delete/:_id", remove);
+// Update Service
+router.put("/update/:_id", update);
+// Delete / Remove Service
+router.del("/delete/:_id", remove);
 
 module.exports = router;

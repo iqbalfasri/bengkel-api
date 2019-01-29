@@ -94,3 +94,77 @@ exports.create = (req, res) => {
       });
     });
 };
+
+// Update Service
+exports.update = (req, res) => {
+  const { _id } = req.params;
+  const { tanggal_service, id_kendaraan, id_montir } = req.body;
+
+  let updateData = {};
+
+  if (tanggal_service) {
+    updateData.tanggal_service = tanggal_service;
+  }
+  if (id_kendaraan) {
+    updateData.kendaraan = id_kendaraan;
+  }
+  if (id_montir) {
+    updateData.montir = id_montir;
+  }
+
+  service
+    .findOneAndUpdate({ _id: _id }, updateData)
+    .then(serv => {
+      if (serv === null) {
+        return res.send(404, {
+          message: "Service tidak ditemukan",
+          code: code_response.CODE_NOT_FOUND
+        });
+      }
+
+      res.send(201, {
+        message: "Update berhasil",
+        code: code_response.CODE_SUCCESS
+      });
+    })
+    .catch(err => {
+      if (err.kind === "ObjectId") {
+        return res.send(404, {
+          message: "Service tidak ditemukan",
+          code: code_response.CODE_NOT_FOUND
+        });
+      }
+
+      res.send(500, {
+        message: "Internal server error",
+        code: code_response.CODE_SERVER_ERROR
+      });
+    });
+};
+
+// Delete / Remove Service
+exports.remove = (req, res) => {
+  const { _id } = req.params;
+
+  service
+    .findOneAndDelete({ _id: _id })
+    .then(() => {
+      res.send(200, {
+        message: "Delete berhasil",
+        code: code_response.CODE_SUCCESS
+      });
+    })
+    .catch(err => {
+      if (err.kind === "ObjectId") {
+        return res.send(404, {
+          message: "Service tidak ditemukan",
+          code: code_response.CODE_NOT_FOUND
+        });
+      }
+
+      res.send(500, {
+        message: "Internal server error",
+        code: code_response.CODE_SERVER_ERROR
+      });
+    });
+};
