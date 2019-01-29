@@ -13,13 +13,22 @@ exports.index = (req, res) => {
 
 // View All Montir
 exports.all = (req, res) => {
-  service.find().then(serv => {
-    res.send(200, {
-      data: serv,
-      message: "Success",
-      code: code_response.CODE_SUCCESS
-    });
-  });
+  service
+    .find()
+    .populate("kendaraan")
+    .populate("montir", "nama_montir alamat_montir jenis_kelamin_montir")
+    .then(serv => {
+      res.send(200, {
+        data: serv,
+        message: "Success",
+        code: code_response.CODE_SUCCESS
+      });
+    }).catch(err => {
+      res.send(500, {
+        message: "Internal server error",
+        code: code_response.CODE_SERVER_ERROR
+      })
+    })
 };
 
 // Detail Kendaraan
@@ -34,4 +43,19 @@ exports.create = (req, res) => {
     montir: id_montir
   });
 
+  create_service
+    .save()
+    .then(serv => {
+      res.send(201, {
+        data: serv,
+        message: "Success",
+        code: code_response.CODE_SUCCESS
+      });
+    })
+    .catch(err => {
+      res.send(500, {
+        message: "Internal server error",
+        code: code_response.CODE_SERVER_ERROR
+      });
+    });
 };
