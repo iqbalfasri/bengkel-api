@@ -5,3 +5,10 @@
 * NodeJS
 * Restify [[Github](https://github.com/restify/node-restify)]
 * MongoDB with Mongoose
+
+### Features:
+* Input, Update dan Delete Kendaraan
+* Input, Update dan Delete Montir
+* Input, Update dan Delete Customer
+* Service Kendaraan
+* > Authentication (Soon)
