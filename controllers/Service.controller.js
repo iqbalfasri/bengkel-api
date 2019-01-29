@@ -11,7 +11,7 @@ exports.index = (req, res) => {
   });
 };
 
-// View All Montir
+// View All Service
 exports.all = (req, res) => {
   service
     .find()
