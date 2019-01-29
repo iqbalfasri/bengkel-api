@@ -3,5 +3,5 @@
 
 ### Stack Technologies:
 * NodeJS
-* Restify [[Github](http://restify.com)]
+* Restify [[Github](https://github.com/restify/node-restify)]
 * MongoDB with Mongoose

@@ -1,11 +1,9 @@
 {
 	"name": "bengkel-api",
 	"version": "1.0.0",
-	"description": "My API Description",
+	"description": "Simple REST Api buat bengqel mobil atau motor klean",
 	"keywords": [
-		"restify",
-		"template",
-		"boilerplate"
+		"restify"
 	],
 	"scripts": {
 		"start": "node app.js",
