@@ -32,7 +32,7 @@ exports.all = (req, res) => {
     });
 };
 
-// Detail Kendaraan
+// Detail Service
 exports.detail = (req, res) => {
   const { _id } = req.params;
 
