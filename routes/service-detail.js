@@ -5,7 +5,7 @@ const {
   index,
   all,
   // create,
-  // detail,
+  detail,
   // update,
   // remove
 } = require("../controllers/ServiceDetail.controller");
