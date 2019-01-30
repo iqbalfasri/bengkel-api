@@ -89,3 +89,15 @@ exports.create = (req, res) => {
       });
     });
 };
+
+exports.update = (req, res) => {
+  res.send(200, {
+    message: "update"
+  });
+};
+
+exports.remove = (req, res) => {
+  res.send(200, {
+    message: "delete"
+  });
+};
