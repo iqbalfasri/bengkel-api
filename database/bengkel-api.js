@@ -7,7 +7,7 @@ exports.connect = () => {
   mongoose
     .connect(
       // Bisa di ganti nanti jika sudah dideploy
-      `mongodb://localhost:27017/bengkel-api` || `${process.env.MONGO_DB_LIVE}`,
+      `mongodb://localhost:27017/bengkel-api` || process.env.MONGO_DB_LIVE,
       { useNewUrlParser: true }
     )
     .then(() => {
