@@ -62,3 +62,30 @@ exports.detail = (req, res) => {
       });
     });
 };
+
+// Create / Add new ServiceDetail
+exports.create = (req, res) => {
+  const { jumlah_service, id_service, id_barang_jasa } = req.body;
+  const create_servd = new servdetail({
+    jumlah: jumlah_service,
+    service: id_service,
+    barang_jasa: id_barang_jasa
+  });
+
+  // Save document
+  create_servd
+    .save()
+    .then(servd => {
+      res.send(201, {
+        data: servd,
+        message: "Success",
+        code: code_response.CODE_SUCCESS
+      });
+    })
+    .catch(err => {
+      res.send(500, {
+        message: "Internal server error",
+        code: code_response.CODE_SERVER_ERROR
+      });
+    });
+};

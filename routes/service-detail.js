@@ -4,7 +4,7 @@ const router = new (require("restify-router")).Router();
 const {
   index,
   all,
-  // create,
+  create,
   detail,
   // update,
   // remove
@@ -16,8 +16,8 @@ router.post("/", index);
 router.post("/detail/:_id", detail);
 // View / List All Service Detail
 router.post("/all", all);
-// Create BarangJasa / Add new Service Detail
-// router.post("/create", create);
+// Create / Add new Service Detail
+router.post("/create", create);
 // Update Service Detail
 // router.put("/update/:_id", update);
 // Delete / Remove Service Detail
