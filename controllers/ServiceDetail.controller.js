@@ -91,9 +91,37 @@ exports.create = (req, res) => {
 };
 
 exports.update = (req, res) => {
-  res.send(200, {
-    message: "update"
-  });
+  const { _id } = req.params;
+  const { jumlah_service, id_service, id_barang_jasa } = req.body;
+
+  let updateData = {};
+
+  if (jumlah_service) {
+    updateData.jumlah = jumlah_service;
+  }
+  if (id_service) {
+    updateData.service = id_service;
+  }
+  if (id_barang_jasa) {
+    updateData.barang_jasa = id_barang_jasa;
+  }
+
+  servdetail
+    .findOneAndUpdate({ _id: _id }, updateData)
+    .then(() => {
+      res.send(201, {
+        message: "Success",
+        code: code_response.CODE_SUCCESS
+      });
+    })
+    .catch(err => {
+      if (err.kind === "ObjectId") {
+        return res.send(404, {
+          message: "Service tidak ditemukan",
+          code: code_response.CODE_NOT_FOUND
+        });
+      }
+    });
 };
 
 exports.remove = (req, res) => {
