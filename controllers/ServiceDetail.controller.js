@@ -97,7 +97,27 @@ exports.update = (req, res) => {
 };
 
 exports.remove = (req, res) => {
-  res.send(200, {
-    message: "delete"
-  });
+  const { _id } = req.params;
+
+  servdetail
+    .findOneAndDelete({ _id: _id })
+    .then(() => {
+      res.send(200, {
+        message: "Delete berhasil",
+        code: code_response.CODE_SUCCESS
+      });
+    })
+    .catch(err => {
+      if (err.kind === "ObjectId") {
+        return res.send(404, {
+          message: "Service tidak ditemukan",
+          code: code_response.CODE_NOT_FOUND
+        });
+      }
+
+      res.send(500, {
+        message: "Internal server error",
+        code: code_response.CODE_SERVER_ERROR
+      });
+    });
 };
