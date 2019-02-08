@@ -1,3 +1,13 @@
+const Joi = require("joi");
+
+exports.schemaValidation = {
+  barangJasa: Joi.object().keys({
+    nama_barang_jasa: Joi.string().required(),
+    harga: Joi.number().required(),
+    stok: Joi.number().required()
+  })
+};
+
 exports.code_response = {
   CODE_SUCCESS: 0,
   CODE_BAD_REQUEST: 1,
