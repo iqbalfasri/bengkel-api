@@ -12,6 +12,7 @@
 * Input, Update dan Delete Customer
 * Service Kendaraan
 * Authentication (Soon)
+* Middleware for validation data with [[Joi](https://github.com/hapijs/joi)]
 
 ### API Documentation:
 * [Di sini](https://documenter.getpostman.com/view/2177497/RzthQApP#ee9c1306-b4cf-4cf9-9c11-d50f6f63fbb9)
