@@ -1,22 +1,21 @@
 const Joi = require("joi");
+const { code_response } = require("../utils");
 
 const validate = schema => {
   return (req, res, next) => {
-    const { error } = Joi.validate(req.body, schema);
-    const valid = error == null;
-
-    // Cek data valid
-    if (valid) {
-      next();
-    }
-    const { details } = error;
-    const message = details.map(i => i.message).join(",");
-
-    console.log("error", message);
-    // console.log("ada error", error);
-    res.send(422, {
-      error: message
-    })
+    Joi.validate(req.body, schema, (err, value) => {
+      if (err) {
+        // send a 422 error response if validation fails
+        res.send(422, {
+          status: "Invalid request data",
+          message: err.message,
+          code: code_response.CODE_BAD_REQUEST
+        });
+      } else {
+        // send a success response if validation passes
+        next();
+      }
+    });
   };
 };
 
