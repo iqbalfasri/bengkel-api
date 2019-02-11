@@ -1,4 +1,6 @@
 const router = new (require("restify-router")).Router();
+const validation = require("../middleware/validation");
+const { schemaValidation } = require("../utils");
 
 // Controller
 const {
@@ -17,9 +19,9 @@ router.post("/detail/:_id", detail);
 // View / List All Customer's
 router.post("/all", all);
 // Create Customer / Add new Customer
-router.post("/create", create);
+router.post("/create", validation(schemaValidation.customer), create);
 // Update Customer
-router.put("/update/:_id", update);
+router.put("/update/:_id", validation(schemaValidation.customer), update);
 // Delete / Remove Customer
 router.del("/delete/:_id", remove);
 
