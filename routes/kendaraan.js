@@ -1,4 +1,6 @@
 const router = new (require("restify-router")).Router();
+const validation = require("../middleware/validation");
+const { schemaValidation } = require("../utils");
 
 // Controller
 const {
@@ -17,9 +19,9 @@ router.post("/detail/:_id", detail);
 // View / List All Barang Jasa
 router.post("/all", all);
 // Create BarangJasa / Add new Barang Jasa
-router.post("/create", create);
+router.post("/create", validation(schemaValidation.kendaraan), create);
 // Update Barang Jasa
-router.put("/update/:_id", update);
+router.put("/update/:_id", validation(schemaValidation.kendaraan), update);
 // Delete / Remove Barang Jasa
 router.del("/delete/:_id", remove);
 
