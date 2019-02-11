@@ -20,7 +20,8 @@ exports.schemaValidation = {
   montir: Joi.object().keys({
     nama_montir: Joi.string().required(),
     alamat_montir: Joi.string().required(),
-    jenis_kelamin_montir: Joi.string().valid("P", "L")
+    jenis_kelamin_montir: Joi.string().valid("P", "L"),
+    password: Joi.string()
   }),
   service: Joi.object().keys({
     tanggal_service: Joi.date().required(),
